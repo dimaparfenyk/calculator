@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="calculator.css" />
+</head>
+<body>
+    <section class="сalculator">
+    <div class="container">
+        <div class="calculator__header">
+            <h2 class="calculator__title">КРЕДИТНИЙ КАЛЬКУЛЯТОР</h2>
+            <div class="calculator__header-row">
+                <div class="calculator__header-icon calc-info">
+                    <div class="calc-info__title">Cума кредиту</div>
+                    <div class="calc-info__value">від <span>500 000</span> грн</div>
+                </div>
+                <div class="calculator__header-icon calc-info">
+                    <div class="calc-info__title">Термін кредитування</div>
+                    <div class="calc-info__value">до <span>60</span> місяців</div>
+                </div>
+                <div class="calculator__header-icon calc-info">
+                    <div class="calc-info__title">Без довідки про доходи</div>
+                    <div class="calc-info__value">до <span>50 000</span> грн</div>
+                </div>
+            </div>
+        </div>
+        <div class="calculator__price-car">
+            <label>Вартість електромобіля грн</label>
+            <input class="car-price" type="text" value="700000" disabled="">
+        </div>
+        
+        <div class="calc-nav">
+            <div class="calc-nav__item">
+                <label>Авансовий внесок, %</label>
+                <input class="procent-input" type="text" value="30%" >
+                <div class="ks-input-range">
+                    <input class="ks-range start-payment-procent" type="range" min="30" max="70" step="10" value="30"> 
+                </div>
+            </div>
+            <div class="calc-nav__item">
+                <label>Сума кредиту Грн</label>
+                <input class="amount-credit" type="text" value="" >
+            </div>
+
+            <div class="calc-nav__item">
+                <label>Строк кредіту, міс</label>
+                <input class="js-credit-term-input" type="text" value="36" >
+                <div class="ks-input-range">
+                    <input class="ks-range js-credit-term" type="range" min="1" max="84" step="1" value="36"> 
+                </div>
+            </div>
+
+            <div class="calc-result" id="js-result">
+                
+            </div>    
+        </div>
+        <div class="calculator__grid">
+            
+        </div>
+    </div>
+</section>
+    
+
+<script src="calculator.js" type="module"></script>
+</body>
+</html>
