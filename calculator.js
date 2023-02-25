@@ -78,24 +78,103 @@ function assignCreditRateValue(){
 
     switch (procent) {
         case 30:
-            creditRate=0.1;
-            console.log(creditRate);
+            if(monthCount>=12&&monthCount<24){
+                creditRate=6.99;
+                console.log(creditRate);
+            }
+            else if(monthCount===24){
+                creditRate=9.99;
+                console.log(creditRate);
+            }
+            else if(monthCount>=25&&monthCount<=60){
+                creditRate=12.99;
+                console.log(creditRate);
+            }
+            else if(monthCount>=61){
+                creditRate=14.99;
+                console.log(creditRate);
+            }
             break;
+
             case 40:
-                creditRate=0.2;
-            console.log(creditRate);
+                if(monthCount>=12&&monthCount<24){
+                    creditRate=5.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount===24){
+                    creditRate=8.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=25&&monthCount<=36){
+                    creditRate=10.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=37&&monthCount<=84){
+                    creditRate=12.99;
+                    console.log(creditRate);
+                }
             break;
             case 50:
-                creditRate=0.3;
-            console.log(creditRate);
+                if(monthCount>=12&&monthCount<24){
+                    creditRate=2.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount===24){
+                    creditRate=5.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=25&&monthCount<=36){
+                    creditRate=9.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=37&&monthCount<=60){
+                    creditRate=10.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=61&&monthCount<=84){
+                    creditRate=11.99;
+                    console.log(creditRate);
+                }
             break;
             case 60:
-                creditRate=0.4;
-            console.log(creditRate);
+                if(monthCount>=12&&monthCount<24){
+                    creditRate=0.01;
+                    console.log(creditRate);
+                }
+                else if(monthCount===24){
+                    creditRate=4.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=25&&monthCount<=36){
+                    creditRate=6.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=37&&monthCount<=60){
+                    creditRate=9.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=61&&monthCount<=84){
+                    creditRate=10.99;
+                    console.log(creditRate);
+                }
             break;
             case 70:
-                creditRate=0.5;
-            console.log(creditRate);
+                if(monthCount>=12&&monthCount<24){
+                    creditRate=0.01;
+                    console.log(creditRate);
+                }
+                else if(monthCount===24){
+                    creditRate=1.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=25&&monthCount<=60){
+                    creditRate=6.99;
+                    console.log(creditRate);
+                }
+                else if(monthCount>=61&&monthCount<=84){
+                    creditRate=7.99;
+                    console.log(creditRate);
+                }
             break;
         default:
             break;
