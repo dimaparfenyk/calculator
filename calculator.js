@@ -41,22 +41,26 @@ const creditData= {
     },
 };
 
-    const carPrice=document.querySelector('.car-price').value;
+    const carPriceValue=document.querySelector('.car-price');
     const procentSlider=document.querySelector('.start-payment-procent');
-    const procentPrepaymentValue=document.querySelector('.procent-input');
+    const procentPrepaymentValue=document.querySelector('.js-procent-input');
     const creditMonthes=document.querySelector('.js-credit-term-input');
     const creditMonthesSlider=document.querySelector('.js-credit-term');
     const creditAmount=document.querySelector('.amount-credit');
     const creditPerMonth=document.querySelector('.calc-result');
     
     let creditRate=0;
+    let carPrice=700000;
+    
     // инициализация суммы кредита и месячной суммы при первой загрузке
+    initCarPriceUI();
+    assignCreditRateValue();
     calculateCreditAmount();
     calculateCreditPerMonth(creditRate);  
 
     // присвоение значения процентной ставки в зависимости от времени и первичного взноса 
 function assignCreditRateValue(){
-    const procent=Number(procentPrepaymentValue.value);
+    const procent=Number(procentSlider.value);
     const monthCount=Number(creditMonthesSlider.value);
 
         const {thirty, fourty, fifty,sixty,seventy}=creditData;
@@ -150,24 +154,37 @@ creditMonthesSlider.addEventListener('input', onCreditMonthesSliderChange);
 
 // ф-ция присвоения значениия в поле авансовий внесок
 function initProcentPrepaymentValue(){
-   procentPrepaymentValue.value=procentSlider.value;
+   procentPrepaymentValue.textContent=`${procentSlider.value} %`;
 };
 
-// ф-ция присвоения значениия в поле строк кредиту
+function initCarPriceUI(){
+    carPriceValue.textContent=carPrice.toLocaleString();
+}
+
+// // ф-ция присвоения значениия в поле строк кредиту
 function initCreditMonthesValue(){
-    creditMonthes.value=creditMonthesSlider.value
+    creditMonthes.textContent=creditMonthesSlider.value;
 };
 
 // ф-ция рассчета остатка после оплаты первичного взноса
 function calculateCreditAmount(){
+    const percent=procentSlider.value;
+    const creditAfterFirstPayment=carPrice-carPrice*percent/100
+
     initProcentPrepaymentValue();
-    creditAmount.value=carPrice-carPrice*procentPrepaymentValue.value/100; 
+    
+    creditAmount.textContent=creditAfterFirstPayment.toLocaleString();
+    
+    return creditAfterFirstPayment
 };
 
 // ф-ция рассчета необходимых ежемесячных платежей по условиям кредита
 function calculateCreditPerMonth(creditRate){
-    const monthCredit=creditAmount.value/creditMonthes.value;
-   creditPerMonth.textContent= Math.ceil(monthCredit + (monthCredit*creditRate/100))
+    const amount=calculateCreditAmount();
+    const monthCredit=Number(amount/creditMonthesSlider.value);
+
+    initCreditMonthesValue();
+   creditPerMonth.textContent= Math.round(monthCredit + (monthCredit*creditRate/100)).toLocaleString();
 };
 
 function onProcentSliderChange(){
@@ -183,6 +200,3 @@ function onCreditMonthesSliderChange(){
     calculateCreditAmount();
     calculateCreditPerMonth(creditRate);
 };
-
-
-

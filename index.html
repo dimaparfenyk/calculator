@@ -26,35 +26,39 @@
                 </div>
             </div>
         </div>
-        <div class="calculator__price-car">
-            <label>Вартість електромобіля грн</label>
-            <input class="car-price" type="text" value="700000" disabled="">
+        <div class="price-box">
+            <div class="car-amount-box">
+                <p>Вартість електромобіля грн</p>
+                <p class="car-price">700000</p>
+            </div>
+            <div  class="month-payment-box">
+                <p>Щомісячний платіж</p>
+                <p class="calc-result"> </p>
+            </div> 
         </div>
         
         <div class="calc-nav">
             <div class="calc-nav__item">
-                <label>Авансовий внесок, %</label>
-                <input class="procent-input" type="text" value="30%" >
+                <p>Авансовий внесок</p>
+                <p class="js-procent-input">30</p>
+                
                 <div class="ks-input-range">
                     <input class="styled-slider slider-progress start-payment-procent" type="range" min="30" max="70" step="10" value="30"> 
                 </div>
             </div>
             <div class="calc-nav__item">
-                <label>Сума кредиту Грн</label>
-                <input class="amount-credit" type="text" value="" >
+                <p>Сума кредиту, Грн</p>
+                <p class="amount-credit"></p>
             </div>
 
             <div class="calc-nav__item">
-                <label>Строк кредиту, міс</label>
-                <input class="js-credit-term-input" type="text" value="36" >
+                <p>Строк кредиту, міс</p>
+                <p class="js-credit-term-input"></p>
                 <div class="ks-input-range">
                     <input class="styled-slider slider-progress js-credit-term" type="range" min="1" max="84" step="1" value="36"> 
                 </div>
             </div>
-
-            <div  id="js-result">
-                <p class="calc-result"> </p>
-            </div>    
+   
         </div>
         <div class="calculator__grid">
             
