@@ -1,44 +1,9 @@
-const creditData= { 
-   thirty: {
-    percentage:30,
-    firstTimeRange:{start:1, end:12, rate:6.99},
-    secondTimeRange:{start:13, end:24, rate:9.99},
-    thirdTimeRange:{start:25, end:36, rate:12.99},
-    fourthTimeRange:{start:37, end:60, rate:12.99},
-    fifthTimeRange:{start:61, end:84, rate:14.99}
-    },
-    fourty:{
-    percentage:40,
-    firstTimeRange:{start:1, end:12, rate:5.99},
-    secondTimeRange:{start:13, end:24, rate:8.99},
-    thirdTimeRange:{start:25, end:36, rate:10.99},
-    fourthTimeRange:{start:37, end:60, rate:12.99},
-    fifthTimeRange:{start:61, end:84, rate:12.99}
-    },
-    fifty:{
-    percentage:50,
-    firstTimeRange:{start:1, end:12, rate:2.99},
-    secondTimeRange:{start:13, end:24, rate:5.99},
-    thirdTimeRange:{start:25, end:36, rate:9.99},
-    fourthTimeRange:{start:37, end:60, rate:10.99},
-    fifthTimeRange:{start:61, end:84, rate:11.99}
-    },
-    sixty:{
-    percentage:60,
-    firstTimeRange:{start:1, end:12, rate:0.01},
-    secondTimeRange:{start:13, end:24, rate:4.99},
-    thirdTimeRange:{start:25, end:36, rate:6.99},
-    fourthTimeRange:{start:37,end:60, rate:9.99},
-    fifthTimeRange:{start:61, end:84, rate:10.99}
-    },
-    seventy:{
-    percentage:70,
-    firstTimeRange:{start:1, end:12, rate:0.01},
-    secondTimeRange:{start:13, end:24, rate:1.99},
-    thirdTimeRange:{start:25, end:36, rate:6.99},
-    fourthTimeRange:{start:37, end:60, rate:6.99},
-    fifthTimeRange:{start:61, end:84, rate:7.99},
-    },
+const data={
+   30: [6.99, 9.99, 12.99, 12.99, 14.99],
+   40:[5.99,6.99,10.99,12.99,12.99],
+   50: [2.99,5.99,9.99,10.99,11.99],
+   60:[0.01,4.99,6.99,9.99, 10.99],
+   70:[0.01,1.99,6.99,6.99,7.99],
 };
 
     const carPriceValue=document.querySelector('.car-price');
@@ -54,99 +19,98 @@ const creditData= {
     
     // инициализация суммы кредита и месячной суммы при первой загрузке
     initCarPriceUI();
-    assignCreditRateValue();
+    // assignCreditRateValue();
     calculateCreditAmount();
     calculateCreditPerMonth(creditRate);  
+    assignCreditRate()
 
-    // присвоение значения процентной ставки в зависимости от времени и первичного взноса 
-function assignCreditRateValue(){
-    const procent=Number(procentSlider.value);
-    const monthCount=Number(creditMonthesSlider.value);
+     // присвоение значения процентной ставки в зависимости от времени и первичного взноса 
+    function assignCreditRate(){
+        const procent=Number(procentSlider.value);
+        const monthCount=Number(creditMonthesSlider.value);
+        const percentageValue=Object.keys(data).map(item=>Number(item));
 
-        const {thirty, fourty, fifty,sixty,seventy}=creditData;
-        switch (procent) {
-        case thirty.percentage:
-            const {firstTimeRange,secondTimeRange,thirdTimeRange,fourthTimeRange,fifthTimeRange}=thirty;
-
-            if(monthCount<=firstTimeRange.end){
-                creditRate=firstTimeRange.rate;
-            }
-            else if(monthCount>=secondTimeRange.start && monthCount<=secondTimeRange.end){
-                creditRate=secondTimeRange.rate;
-            }
-            else if(monthCount>=thirdTimeRange.start&&monthCount<=fourthTimeRange.end){
-                creditRate=thirdTimeRange.rate;
-            }
-            else if(monthCount>=fifthTimeRange.start){
-                creditRate=fifthTimeRange.rate;
-            }
-            break;
-            case fourty.percentage:
-                if(monthCount<=fourty.firstTimeRange.end){
-                    creditRate=fourty.firstTimeRange.rate;
+            switch (procent) {
+            case percentageValue[0]:
+                if(monthCount<=12){
+                    creditRate=data[30][0];
                 }
-                else if(monthCount>=fourty.secondTimeRange.start && monthCount<=fourty.secondTimeRange.end){
-                    creditRate=fourty.secondTimeRange.rate;
+                else if(monthCount>=13 && monthCount<=24){
+                    creditRate=data[30][1];
                 }
-                else if(monthCount>=fourty.thirdTimeRange.start&&monthCount<=fourty.thirdTimeRange.end){
-                    creditRate=fourty.thirdTimeRange.rate;
+                else if(monthCount>=25&&monthCount<=60){
+                    creditRate=data[30][2];
                 }
-                else if(monthCount>=fourty.fourthTimeRange.start&&monthCount<=fourty.fifthTimeRange.end){
-                    creditRate=fourty.fourthTimeRange.rate;
+                else if(monthCount>=61){
+                    creditRate=data[30][4];
                 }
-            break;
-            case fifty.percentage:
-                if(monthCount<=fifty.firstTimeRange.end){
-                    creditRate=fifty.firstTimeRange.rate;
-                }
-                else if(monthCount>=fifty.secondTimeRange.start && monthCount<=fifty.secondTimeRange.end){
-                    creditRate=fifty.secondTimeRange.rate;
-                }
-                else if(monthCount>=fifty.thirdTimeRange.start&&monthCount<=fifty.thirdTimeRange.end){
-                    creditRate=fifty.thirdTimeRange.rate;
-                }
-                else if(monthCount>=fifty.fourthTimeRange.start&&monthCount<=fifty.fourthTimeRange.end){
-                    creditRate=fifty.fourthTimeRange.rate;
-                }
-                else if(monthCount>=fifty.fifthTimeRange.start&&monthCount<=fifty.fifthTimeRange.end){
-                    creditRate=fifty.fifthTimeRange.rate;
-                }
-            break;
-            case sixty.percentage:
-                if(monthCount<=sixty.firstTimeRange.end){
-                    creditRate=sixty.firstTimeRange.rate;
-                }
-                else if(monthCount>=sixty.secondTimeRange.start && monthCount<=sixty.secondTimeRange.end){
-                    creditRate=sixty.secondTimeRange.rate;
-                }
-                else if(monthCount>=sixty.thirdTimeRange.start&&monthCount<=sixty.thirdTimeRange.end){
-                    creditRate=sixty.thirdTimeRange.rate;
-                }
-                else if(monthCount>=sixty.fourthTimeRange.start&&monthCount<=sixty.fourthTimeRange.end){
-                    creditRate=sixty.fourthTimeRange.rate;
-                }
-                else if(monthCount>=sixty.fifthTimeRange.start&&monthCount<=sixty.fifthTimeRange.end){
-                    creditRate=sixty.fifthTimeRange.rate;
-                }
-            break;
-            case seventy.percentage:
-                if(monthCount<=seventy.firstTimeRange.end){
-                    creditRate=seventy.firstTimeRange.rate;
-                }
-                else if(monthCount>=seventy.secondTimeRange.start && monthCount<=seventy.secondTimeRange.end){
-                    creditRate=seventy.secondTimeRange.rate;
-                }
-                else if(monthCount>=seventy.thirdTimeRange.start&&monthCount<=seventy.fourthTimeRange.end){
-                    creditRate=seventy.thirdTimeRange.rate;
-                }
-                else if(monthCount>=seventy.fifthTimeRange.start&&monthCount<=seventy.fifthTimeRange.end){
-                    creditRate=seventy.fifthTimeRange.rate;
-                }
-            break;
-        default:
-            break;
+                break;
+                case percentageValue[1]:
+                    if(monthCount<=12){
+                        creditRate=data[40][0];
+                    }
+                    else if(monthCount>=13 && monthCount<=24){
+                        creditRate=data[40][1];
+                    }
+                    else if(monthCount>=25&&monthCount<=36){
+                        creditRate=data[40][2];
+                    }
+                    else if(monthCount>=37&&monthCount<=84){
+                        creditRate=data[40][3];
+                    }
+                break;
+                case percentageValue[2]:
+                    if(monthCount<=12){
+                        creditRate=data[50][0];
+                    }
+                    else if(monthCount>=13 && monthCount<=24){
+                        creditRate=data[50][1];
+                    }
+                    else if(monthCount>=25&&monthCount<=36){
+                        creditRate=data[50][2];
+                    }
+                    else if(monthCount>=37&&monthCount<=60){
+                        creditRate=data[50][3];
+                    }
+                    else if(monthCount>=61&&monthCount<=84){
+                        creditRate=data[50][4];
+                    }
+                break;
+                case data[60]:
+                    if(monthCount<=12){
+                        creditRate=data[60][0];
+                    }
+                    else if(monthCount>=13 && monthCount<=24){
+                        creditRate=data[60][1];
+                    }
+                    else if(monthCount>=25&&monthCount<=36){
+                        creditRate=data[60][2];
+                    }
+                    else if(monthCount>=37&&monthCount<=60){
+                        creditRate=data[60][3];
+                    }
+                    else if(monthCount>=61&&monthCount<=84){
+                        creditRate=data[60][4];
+                    }
+                break;
+                case data[70]:
+                    if(monthCount<=12){
+                        creditRate=data[70][0];
+                    }
+                    else if(monthCount>=13 && monthCount<=24){
+                        creditRate=data[70][1];
+                    }
+                    else if(monthCount>=25&&monthCount<=60){
+                        creditRate=data[70][2];
+                    }
+                    else if(monthCount>=61&&monthCount<=84){
+                        creditRate=data[70][4];
+                    }
+                break;
+            default:
+                break;
+        };
     };
-};
 
 //  обработка событий при скроле ползунков-инпутов
 procentSlider.addEventListener('input', onProcentSliderChange);
@@ -188,14 +152,14 @@ function calculateCreditPerMonth(creditRate){
 };
 
 function onProcentSliderChange(){
-    assignCreditRateValue();
+    assignCreditRate();
     initProcentPrepaymentValue();
     calculateCreditAmount();
     calculateCreditPerMonth(creditRate); 
 };
 
 function onCreditMonthesSliderChange(){
-    assignCreditRateValue();
+    assignCreditRate();
     initCreditMonthesValue();
     calculateCreditAmount();
     calculateCreditPerMonth(creditRate);
