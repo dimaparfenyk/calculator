@@ -41,8 +41,6 @@ const creditData= {
     },
 };
 
-    console.dir(creditData)
-    console.log(creditData.thirty.percentage)
     const carPrice=document.querySelector('.car-price').value;
     const procentSlider=document.querySelector('.start-payment-procent');
     const procentPrepaymentValue=document.querySelector('.procent-input');
@@ -168,7 +166,8 @@ function calculateCreditAmount(){
 
 // ф-ция рассчета необходимых ежемесячных платежей по условиям кредита
 function calculateCreditPerMonth(creditRate){
-   creditPerMonth.textContent= Math.round(creditAmount.value/(creditMonthes.value*(1+creditRate/100)))
+    const monthCredit=creditAmount.value/creditMonthes.value;
+   creditPerMonth.textContent= Math.ceil(monthCredit + (monthCredit*creditRate/100))
 };
 
 function onProcentSliderChange(){
@@ -181,6 +180,7 @@ function onProcentSliderChange(){
 function onCreditMonthesSliderChange(){
     assignCreditRateValue();
     initCreditMonthesValue();
+    calculateCreditAmount();
     calculateCreditPerMonth(creditRate);
 };
 
