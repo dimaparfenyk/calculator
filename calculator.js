@@ -1,7 +1,7 @@
 const data={
-   30: [6.99, 9.99, 12.99, 12.99, 14.99],
+   30:[6.99, 9.99, 12.99, 12.99, 14.99],
    40:[5.99,6.99,10.99,12.99,12.99],
-   50: [2.99,5.99,9.99,10.99,11.99],
+   50:[2.99,5.99,9.99,10.99,11.99],
    60:[0.01,4.99,6.99,9.99, 10.99],
    70:[0.01,1.99,6.99,6.99,7.99],
 };
@@ -13,18 +13,24 @@ const data={
     const creditMonthesSlider=document.querySelector('.js-credit-term');
     const creditAmount=document.querySelector('.amount-credit');
     const creditPerMonth=document.querySelector('.calc-result');
-    
+    const annualPayment=document.querySelector('.js-annual-payment');
+    const overPayment=document.querySelector('.js-overpayment');
+
     let creditRate=0;
     let carPrice=700000;
-    
-    // инициализация суммы кредита и месячной суммы при первой загрузке
+    initCreditCalculationAtFirstRender();
+// инициализация суммы кредита и месячной суммы при первой загрузке
+function initCreditCalculationAtFirstRender(){
     initCarPriceUI();
-    // assignCreditRateValue();
     calculateCreditAmount();
     calculateCreditPerMonth(creditRate);  
-    assignCreditRate()
+    assignCreditRate();
+    initFullCreditPriceValue();
+    initOverPaymentUIvalue();
+};
+    
+// присвоение значения процентной ставки в зависимости от времени и первичного взноса 
 
-     // присвоение значения процентной ставки в зависимости от времени и первичного взноса 
     function assignCreditRate(){
         const procent=Number(procentSlider.value);
         const monthCount=Number(creditMonthesSlider.value);
@@ -146,14 +152,19 @@ function calculateCreditAmount(){
 function calculateCreditPerMonth(creditRate){
     const amount=calculateCreditAmount();
     const monthCredit=Number(amount/creditMonthesSlider.value);
+    const result=Math.round(monthCredit + (monthCredit*creditRate/100));
 
-    initCreditMonthesValue();
-   creditPerMonth.textContent= Math.round(monthCredit + (monthCredit*creditRate/100)).toLocaleString();
+   initCreditMonthesValue();
+   creditPerMonth.textContent= result.toLocaleString();
+    
+   return result;
 };
 
 function onProcentSliderChange(){
     assignCreditRate();
     initProcentPrepaymentValue();
+    initFullCreditPriceValue();
+    initOverPaymentUIvalue();
     calculateCreditAmount();
     calculateCreditPerMonth(creditRate); 
 };
@@ -161,6 +172,24 @@ function onProcentSliderChange(){
 function onCreditMonthesSliderChange(){
     assignCreditRate();
     initCreditMonthesValue();
+    initFullCreditPriceValue();
+    initOverPaymentUIvalue();
     calculateCreditAmount();
     calculateCreditPerMonth(creditRate);
 };
+
+function initFullCreditPriceValue(){
+    const monthCredit=calculateCreditPerMonth(creditRate);
+    const result=monthCredit*creditMonthesSlider.value;
+   
+    annualPayment.textContent=result.toLocaleString();
+
+    return result;
+};
+
+function initOverPaymentUIvalue(){
+const annualPayment=initFullCreditPriceValue();
+const priceAfterFirstPayment=calculateCreditAmount();
+
+overPayment.textContent=(annualPayment-priceAfterFirstPayment).toLocaleString();
+}
